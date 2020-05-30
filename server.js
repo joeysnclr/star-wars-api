@@ -44,7 +44,6 @@ app.get('/api/id/:id', function (req, res) {
 })
 
 app.get('/api/search/:query', function (req, res) {
-    const category = req.params.category;
     const query = req.params.query.toLowerCase();
     let hits = [];
     for (const category of Object.keys(data)) {
