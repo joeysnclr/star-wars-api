@@ -1,12 +1,11 @@
 const express = require('express');
-const bodyParser = require('body-parser')
-const path = require('path');
+const cors = require('cors')
 const app = express();
-const fs = require('fs');
 const dataFile = require('./data.json')
 
-
 let data = dataFile;
+
+app.use(cors())
 
 
 app.get('/api', function (req, res) {
