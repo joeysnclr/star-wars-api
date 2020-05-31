@@ -19,7 +19,7 @@ app.get('/api', function (req, res) {
         category: "/api/category/:category",
         item: "/api/id/:id",
         search: "/api/search/:query",
-        appearances: "/api/appearences/:id"
+        appearances: "/api/appearances/:id"
     }
     res.json(help);
 });
@@ -57,7 +57,7 @@ app.get('/api/search/:query', function (req, res) {
     res.json(hits)
 })
 
-app.get('/api/appearences/:id', function (req, res) {
+app.get('/api/appearances/:id', function (req, res) {
     const id = req.params.id;
     let hits = [];
     for (const category of Object.keys(data)) {
