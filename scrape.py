@@ -6,6 +6,7 @@ def dataCleanup():
     for category in data:
         for item in data[category]:
             item['category'] = category
+            item['img'] = item['img'].split('?')[0]
             for stat in item.get('stats', []):
                 item[stat.lower()] = item['stats'][stat]
             item.pop('stats', None)
@@ -75,3 +76,4 @@ def retrieveDatabank():
         json.dump(categoriesData, file)
 
 
+dataCleanup()
