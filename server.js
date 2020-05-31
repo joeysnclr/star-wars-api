@@ -19,6 +19,7 @@ app.get('/api', function (req, res) {
         category: "/api/category/:category",
         item: "/api/id/:id",
         search: "/api/search/:query",
+        appearances: "/api/appearences/:id"
     }
     res.json(help);
 });
@@ -50,6 +51,23 @@ app.get('/api/search/:query', function (req, res) {
         for (const item of data[category]) {
             if (item.title.toLowerCase().includes(query)) {
                 hits.push(item)
+            }
+        }
+    }
+    res.json(hits)
+})
+
+app.get('/api/appearences/:id', function (req, res) {
+    const id = req.params.id;
+    let hits = [];
+    for (const category of Object.keys(data)) {
+        for (const item of data[category]) {
+            if (Object.keys(item).includes('appearances')) {
+                for (const appearance of item.appearances) {
+                    if (appearance.ref == id) {
+                        hits.push(item)
+                    }
+                }
             }
         }
     }
