@@ -1,14 +1,20 @@
 import requests, bs4, json
 
+
+
+
 def dataCleanup():
     with open("data.json", "r+") as file:
         data = json.load(file)
     for category in data:
         for item in data[category]:
             item['category'] = category
+
             item['img'] = item['img'].split('?')[0]
+
             for stat in item.get('stats', []):
                 item[stat.lower()] = item['stats'][stat]
+
             item.pop('stats', None)
 
     with open("data.json", "w+") as file:
@@ -33,7 +39,7 @@ def databankHTMLtoJSON(url):
             else:
                 link = link.get('href')
                 ref = link.split('/')[4]
-            name = statItem.get_text().replace('                  ', '').replace('\n', '').replace('                ', '')
+            name = statItem.get_text().replace('                  ', '').replace('\n', '').replace('                ', '').replace(',', '')
             statItemDict = {
                 "ref": ref,
                 "name": name
@@ -75,5 +81,5 @@ def retrieveDatabank():
     with open("data.json", "w+") as file:
         json.dump(categoriesData, file)
 
-
+retrieveDatabank()
 dataCleanup()
