@@ -89,9 +89,8 @@ app.get("/api/appearances/:id", function (req, res) {
         res.json({
             error: "id not found.",
         });
-    } else {
-        res.json(hits);
     }
+    res.json(hits);
 });
 
 app.listen(process.env.PORT || 8080);
