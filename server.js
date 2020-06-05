@@ -35,6 +35,11 @@ app.get("/api", function (req, res) {
 
 app.get("/api/category/:category", function (req, res) {
     const category = req.params.category;
+    if (data[category] === undefined) {
+        res.json({
+            error: "category not found.",
+        });
+    }
     res.json(data[category]);
 });
 
@@ -80,7 +85,13 @@ app.get("/api/appearances/:id", function (req, res) {
             }
         }
     }
-    res.json(hits);
+    if (hits.length == 0) {
+        res.json({
+            error: "id not found.",
+        });
+    } else {
+        res.json(hits);
+    }
 });
 
 app.listen(process.env.PORT || 8080);
