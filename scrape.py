@@ -1,6 +1,24 @@
 import requests, bs4, json
 
 
+def getKeys():
+    with open("data.json", "r+") as file:
+        data = json.load(file)
+    keys = []
+    for category in data:
+        for item in data[category]:
+            for key in item:
+                if key not in keys:
+                    keys.append(key)
+
+    for category in data:
+        for item in data[category]:
+            for key in keys:
+                if key not in item:
+                    item[key] = []
+    with open("data.json", "w+") as file:
+        json.dump(data, file)
+
 
 
 def dataCleanup():
@@ -80,6 +98,4 @@ def retrieveDatabank():
 
     with open("data.json", "w+") as file:
         json.dump(categoriesData, file)
-
-retrieveDatabank()
-dataCleanup()
+getKeys()
